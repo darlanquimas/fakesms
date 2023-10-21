@@ -1,0 +1,8 @@
+{
+  "watch": ["src"],
+  "ext": "ts js ejs",
+  "execMap": {
+    "ts": "ts-node"
+  },
+  "delay": 1000
+}

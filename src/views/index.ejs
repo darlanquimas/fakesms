@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title><%= title %></title>
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      th,
+      td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Fake SMS</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Destinatário</th>
+          <th>Mensagem</th>
+          <th>Data/Hora</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (let i = 0; i < messages.length; i++) { %>
+        <tr>
+          <td><%= messages[i].id %></td>
+          <td><%= messages[i].recipient %></td>
+          <td><%= messages[i].message %></td>
+          <td><%= messages[i].timestamp %></td>
+        </tr>
+        <% } %>
+        <!-- Adicione mais linhas conforme necessário -->
+      </tbody>
+    </table>
+  </body>
+</html>

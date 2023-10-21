@@ -1,0 +1,12 @@
+.idea/
+node_modules/
+build/
+temp/
+.env
+coverage
+dist
+yarn-error.log
+cliente.http
+messageDb.sqlite
+uploads/*
+!uploads/.gitkeep
