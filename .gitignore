@@ -1,12 +1,13 @@
 .idea/
 node_modules/
-build/
+build
 temp/
 .env
 coverage
 dist
 yarn-error.log
 cliente.http
-messageDb.sqlite
+.sqlite
 uploads/*
-!uploads/.gitkeep
+!uploads/.gitkeep'
+.vscode

@@ -34,6 +34,7 @@
           <th>Destinatário</th>
           <th>Mensagem</th>
           <th>Data/Hora</th>
+          <th>Remetente</th>
         </tr>
       </thead>
       <tbody>
@@ -43,10 +44,56 @@
           <td><%= messages[i].recipient %></td>
           <td><%= messages[i].message %></td>
           <td><%= messages[i].timestamp %></td>
+          <td><%= messages[i].sender %></td>
         </tr>
         <% } %>
         <!-- Adicione mais linhas conforme necessário -->
       </tbody>
     </table>
+
+    <script>
+      const messages = <%- JSON.stringify(messages) %>; // Preencha com os dados das mensagens
+      const itemsPerPage = 10; // Número de itens por página
+      let currentPage = 1;
+
+      function renderTable() {
+        const tableBody = document.querySelector('tbody');
+        tableBody.innerHTML = '';
+
+        const start = (currentPage - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+
+        for (let i = start; i < end && i < messages.length; i++) {
+          const message = messages[i];
+          const row = `
+            <tr>
+              <td>${message.id}</td>
+              <td>${message.recipient}</td>
+              <td>${message.message}</td>
+              <td>${message.timestamp}</td>
+              <td>${message.sender}</td>
+            </tr>
+          `;
+          tableBody.innerHTML += row;
+        }
+      }
+
+      document.getElementById('prevPage').addEventListener('click', () => {
+        if (currentPage > 1) {
+          currentPage--;
+          renderTable();
+        }
+      });
+
+      document.getElementById('nextPage').addEventListener('click', () => {
+        const totalPages = Math.ceil(messages.length / itemsPerPage);
+        if (currentPage < totalPages) {
+          currentPage++;
+          renderTable();
+        }
+      });
+
+      renderTable();
+    </script>
   </body>
 </html>
