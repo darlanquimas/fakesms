@@ -33,11 +33,35 @@ class InMemoryDatabase {
   }
 
   public getAllMessages(
-    callback: (err: Error | null, rows: any[]) => void
+    skip: number,
+    take: number,
+    callback: (
+      err: Error | null,
+      result: { messages: any[]; count: number }
+    ) => void
   ): void {
     this.db.all(
-      "SELECT id, message, recipient, timestamp, sender FROM messages order by timestamp desc ",
-      callback
+      "SELECT id, message, recipient, timestamp, sender FROM messages order by timestamp desc limit ? offset ? ",
+      [take, skip],
+      (err, rows) => {
+        if (err) {
+          callback(err, { messages: [], count: 0 });
+        } else {
+          // Calcula o número total de linhas na tabela
+          this.db.get(
+            "SELECT COUNT(*) as count FROM messages",
+            (err, result: any) => {
+              if (err) {
+                console.log(err);
+                callback(err, { messages: [], count: 0 });
+              } else {
+                const count = result.count;
+                callback(null, { messages: rows, count });
+              }
+            }
+          );
+        }
+      }
     );
   }
 
